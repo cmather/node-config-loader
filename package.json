@@ -1,0 +1,15 @@
+{
+  "name": "@cmather/config-loader",
+  "version": "0.0.1",
+  "description": "A webpack loader for configuration files.",
+  "main": "index.js",
+  "repository": "https://github.com/cmather/node-config-loader",
+  "author": "Chris Mather <chris@eventedmind.com>",
+  "license": "MIT",
+  "dependencies": {
+    "debug": "^2.6.8",
+    "ejs": "^2.5.6",
+    "loader-utils": "^1.1.0",
+    "mocha": "^3.4.1"
+  }
+}
