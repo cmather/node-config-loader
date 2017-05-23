@@ -1,3 +1,5 @@
+const fs    = require('fs');
+const path  = require('path');
 const utils = require('loader-utils');
 const ejs   = require('ejs');
 const debug = require('debug')('config-loader');
@@ -11,8 +13,7 @@ const debug = require('debug')('config-loader');
 module.exports = function(source) {
   const options = utils.getOptions(this);
   options.target = options.target || 'web';
-  const sourceRequestPath = this.request;
-  debug('sourceRequestPath %s', sourceRequestPath);
+  const modulePath = this.context;
 
   /**
    * Given a raw config source file as a string, returns the config object for a
@@ -26,7 +27,6 @@ module.exports = function(source) {
       result.extends = config.extends;
     }
 
-    debug('parse result: %j', result);
     return result;
   }
 
@@ -55,8 +55,8 @@ module.exports = function(source) {
 
   while (config.extends) {
     debug('parsing extends: %s', config.extends);
-    let filepath = path.resolve(path.dirname(sourceRequestPath), config.extends);
-    debug('extends filepath: %s', filepath);
+    let filepath = path.join(modulePath, config.extends);
+    delete config.extends;
     config = read(filepath);
     stack.push(config);
   }
@@ -67,7 +67,6 @@ module.exports = function(source) {
    */
   const result = {};
   while (config = stack.pop()) {
-    debug('assigning config: %j', config);
     Object.assign(result, config);
   }
 

@@ -1,6 +1,6 @@
 {
   "name": "@cmather/config-loader",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A webpack loader for configuration files.",
   "main": "index.js",
   "repository": "https://github.com/cmather/node-config-loader",
